@@ -34,9 +34,10 @@ class PostShow extends Component {
     return (
       <View>
             <Image mode="aspectFill" className="card-img-top" src={post.imageUrl} />
-            <View className="card-body">
+            <View className="card-body no-border">
               <View className="card-title">{post.title}</View>
               <View className="card-subtitle">{post.author}</View>
+              <View className="card-test">{post.description}</View>
             </View>
       </View>
     )
