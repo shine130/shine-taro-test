@@ -2,6 +2,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 
 class PostIndex extends Component {
+  state = {
+    posts:[]
+  }
+
   config = {
     navigationBarTitleText:'Posts'
   }
@@ -15,18 +19,30 @@ class PostIndex extends Component {
     })
   }
 
-  componentWillMount(){
-    Taro.request({
-      url:'http://localhost:3333/posts'
-    }).then(response => {
-      console.log(response.data)
+  async componentWillMount(){
+    const response = await Taro.request({
+      url:`${API_HOST}/posts`
     })
+
+    this.setState({
+      posts:response.data
+    })
+
+    console.log(response.data)
   }
 
   render(){
     return (
-      <View>
-        <Text onClick={this.handleClick.bind(this,'shine',3)}>List</Text>
+      <View className="container">
+        {posts.map((post) => 
+          <View className="card" key={post.id}>
+            <Image mode="aspectFill" className="card-img-top" src={post.imageUrl} />
+            <View className="card-body">
+              <View className="card-title">{post.title}</View>
+              <View className="card-subtitle">{post.author}</View>
+            </View>
+          </View>
+        )}
       </View>
     )
   }
